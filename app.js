@@ -24,22 +24,13 @@ function checkToken(req, res, next) {
     const headerParams = req.headers['authorization']
     const token = headerParams && headerParams.split(' ')[1]
 
-    console.log('-----')
-    console.log(headerParams)
-    console.log('-----') 
-
     if(!token)
         return res.status(401).json({msg: 'Acesso negado!'})
 
     try {
         
         const secret = process.env.SECRET
-        console.log('secret')
-        console.log(secret)
-        console.log('token')
-        console.log(token)
         jwt.verify(token, secret)
-
         next()
 
     } catch (error) {
